@@ -12,6 +12,8 @@ function App() {
     setState(e.target.value);
   }, []);
 
+  const renderItem = useCallback(({title}, key, ref) => <div ref={ref} key={key}>{title}</div>)
+
   const getData = useCallback(async (query, pageNumber) => {
     try {
       if (controllerRef.current) controllerRef.current.abort();
@@ -31,8 +33,8 @@ function App() {
 
   return (
     <>
-      <input type="text" value={state} onChange={(e) => handleChange(e)} />
-      <InfintieScorll query={state} getData={getData} />
+      <input type="text" value={state} onChange={handleChange} />
+      <InfintieScorll query={state} listData={data} renderListItem={renderItem} getData={getData} />
     </>
   );
 }
